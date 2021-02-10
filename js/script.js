@@ -77,7 +77,7 @@ const createMsg = (value)=>{
 	return ` <h3 class="col-12">${value}</h3>`;
 }
 
-const createItem = (itemID,itemName,imageSource,ingredientsList,ingredientsMeasures)=>{
+const CreateSingleItem = (itemID,itemName,imageSource,ingredientsList,ingredientsMeasures)=>{
 	// boostrap here
 	return `<div class="col-lg-3 col-md-6">
     <div class="card food-item" id="${itemID}">
@@ -146,5 +146,19 @@ const generateIngredientList = (ingredientsList, ingredientsMeasures) => {
   };
 
 const addToCard = ()=>{
-	const fooditems = document.getElementsByClassName("food-item");
+	/* 
+		Now  both createModal and createItem has unique ID frothe json.
+		It's been assigned during creating the return of html
+		Now pass the id to the modal to run the overlay
+		https://getbootstrap.com/docs/4.0/components/modal/
+
+	*/
+	const fooditemsHTML = document.getElementsByClassName("food-item");
+	const foodItems = [...fooditemsHTML];
+	foodItems.map(element=>{
+		element.addEventListener("click",()=>{
+			//attaching modal to each matching or resulted items
+			$(`#${itemID}-ingredients-modal`).modal();
+		})
+	});
 }
