@@ -78,5 +78,73 @@ const createMsg = (value)=>{
 }
 
 const createItem = (itemID,itemName,imageSource,ingredientsList,ingredientsMeasures)=>{
+	// boostrap here
+	return `<div class="col-lg-3 col-md-6">
+    <div class="card food-item" id="${itemID}">
+        <img class="card-img-top" src="${imageSource}" />
+        <div class="card-body">
+        <h5 class="card-text">
+            ${itemName}
+      </h5>
+    </div>
+    ${createModal(
+      itemID,
+      itemName,
+      imageSource,
+      ingredientsList,
+      ingredientsMeasures
+    )}
+  </div>
+</div>`;
+}
+
+const createModal = (
+	itemID,
+	itemName,
+	imageSource,
+	ingredientsList,
+	ingredientsMeasures)=>{
+	// boostrap here
+	return `<div class="modal fade" id="${itemID}-ingredients-modal" tabindex="-1" role="dialog">
+       <div class="modal-dialog modal-dialog-centered" role="document">
+         <div class="modal-content">
+           <div class="card">
+             <img
+               class="card-img-top"
+               src="${imageSource}"
+             />
+             <div class="card-body">
+               <p class="card-text">
+                 <h2>${itemName}</h2>
+                 <h3>Ingredients</h3>
+                 <ul class="ingredients-ul">
+                   ${generateIngredientList(
+                     ingredientsList,
+                     ingredientsMeasures
+                   )}
+                 </ul>
+               </p>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>`;
+}
+
+const generateIngredientList = (ingredientsList, ingredientsMeasures) => {
+	let _list = "";
+  
+	//filtering the ingredientsList, ingredientsMeasures and for null, "", " " and 
+	//checking valid index of that array
+
+	const filteredIngredientsList = ingredientsList.filter((element) => element != "" && element != null);
+	const filteredMeasurementList = ingredientsMeasures.filter((element) => element != " ");
 	
+	
+	filteredIngredientsList.map((ingredientName, index) => {_list += `<li>${ingredientName} (${filteredMeasurementList[index]})</li>`;});
+	return _list;
+  };
+
+const addToCard = ()=>{
+	const fooditems = document.getElementsByClassName("food-item");
 }
