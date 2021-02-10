@@ -11,6 +11,7 @@ const fetchData = (keyWord)=>{
 	fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${keyWord}`)
 	.then(res => res.json())
 	.then(jsonData=> RecipieList(jsonData))
+	.then(()=>addToCard())
 }
 
 const RecipieList = (jsonData)=>{
@@ -138,9 +139,7 @@ const generateIngredientList = (ingredientsList, ingredientsMeasures) => {
 	//checking valid index of that array
 
 	const filteredIngredientsList = ingredientsList.filter((element) => element != "" && element != null);
-	const filteredMeasurementList = ingredientsMeasures.filter((element) => element != " ");
-	
-	
+	const filteredMeasurementList = ingredientsMeasures.filter((element) => element != " ");	
 	filteredIngredientsList.map((ingredientName, index) => {_list += `<li>${ingredientName} (${filteredMeasurementList[index]})</li>`;});
 	return _list;
   };
@@ -153,12 +152,12 @@ const addToCard = ()=>{
 		https://getbootstrap.com/docs/4.0/components/modal/
 
 	*/
-	const fooditemsHTML = document.getElementsByClassName("food-item");
-	const foodItems = [...fooditemsHTML];
-	foodItems.map(element=>{
-		element.addEventListener("click",()=>{
-			//attaching modal to each matching or resulted items
-			$(`#${itemID}-ingredients-modal`).modal();
-		})
-	});
-}
+	const foodItemCollection = document.getElementsByClassName("food-item");
+  	const foodItems = [...foodItemCollection];
+
+  	foodItems.map((element) => {
+    element.addEventListener("click", () => {
+      $(`#${element.id}-ingredients-modal`).modal();
+    });
+  });
+};
