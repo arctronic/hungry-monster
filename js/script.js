@@ -3,9 +3,18 @@ const searchQuery = document.getElementById("search-query");
 const itemList = document.getElementById("item-list");
 
 searcbtn.addEventListener("click",()=>{
-	fetchData(searchQuery.value);
+	init(searchQuery.value);
 })
 
+
+function init(value){
+	if(value ==""){
+		itemList.innerHTML = createMsg("Invalid Search");
+	}
+	else{
+		fetchData(value);
+	}
+}
 
 const fetchData = (keyWord)=>{
 	fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${keyWord}`)
